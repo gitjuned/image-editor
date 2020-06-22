@@ -1,0 +1,71 @@
+// BASE STYLES
+$primary-blue: #211d70;
+
+@mixin flex($justify-contet: center) {
+  display: flex;
+  align-items: center;
+  justify-content: $justify-contet;
+}
+
+.blue-bg {
+  color: white;
+  background-color: $primary-blue;
+}
+
+aside,
+header {
+  @extend .blue-bg;
+}
+
+aside,
+main {
+  display: inline-block;
+}
+header {
+  height: 50px;
+  font-weight: bold;
+  @include flex(flex-start);
+}
+
+// MAIN STYLES
+.main-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: calc(100vh - 50px);
+  overflow: hidden;
+  aside {
+    height: 100%;
+    overflow-x: scroll;
+    padding: 20px 0;
+    background-color: white;
+    border-right: solid 1px grey;
+    display: flex;
+    text-align: center;
+    .images {
+      img {
+        width: 150px;
+        height: 150px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        margin-right: 15px;
+        cursor: pointer;
+
+        &:nth-child(even) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  main {
+    position: relative;
+    background-color: #edf0f2;
+
+    canvas {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+  }
+}
