@@ -7,7 +7,7 @@ export class Images extends Component {
     super(props);
     this.state = {
       images: [],
-      limit: 20,
+      limit: 15,
       start: 1,
     };
   }
@@ -32,7 +32,7 @@ export class Images extends Component {
       );
   };
 
-  handleDragStart = (e, index, url) => {
+  handleDragStart = (e, url) => {
     e.dataTransfer.setData("current_image", url);
   };
 
@@ -42,25 +42,22 @@ export class Images extends Component {
         dataLength={this.state.images.length}
         next={this.fetchImages}
         hasMore={true}
-        loader={<h4>Loading Images...</h4>}
         height="100%"
+        loader={<h4>Images are loading...</h4>}
       >
         <div className="images">
-          {this.state.images.map(
-            (image, index) =>
-              image.download_url && (
-                <img
-                  onClick={() => this.props.setImage(image.download_url)}
-                  onDragStart={(event) => {
-                    this.handleDragStart(event, index, image.download_url);
-                  }}
-                  draggable
-                  key={index}
-                  src={image.download_url}
-                  alt={image.author}
-                />
-              )
-          )}
+          {this.state.images.map((image, index) => (
+            <img
+              onClick={() => this.props.setImage(image.download_url)}
+              onDragStart={(event) => {
+                this.handleDragStart(event, image.download_url);
+              }}
+              draggable
+              key={index}
+              src={image.download_url}
+              alt={image.author}
+            />
+          ))}
         </div>
       </InfiniteScroll>
     );

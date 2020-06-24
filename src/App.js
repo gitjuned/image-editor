@@ -1,43 +1,62 @@
 import React, { Component } from "react";
 import "./App.scss";
 import Images from "./Components/Images";
+import BrandLogo from "./assets/images/inv-logo.png";
 
 export class App extends Component {
   constructor(props) {
     super(props);
     this.myCanvas = React.createRef();
+    this.downloadBtn = React.createRef();
     this.state = {
       canvasDimension: {
         width: 800,
         height: 470,
       },
+      isCanvasLandscape: true,
+      currentImage: "",
     };
   }
 
   componentDidMount() {
-    this.setWhiteCanvasBackground();
+    // this.setWhiteCanvasBackground();
+    const canvas = this.myCanvas.current.getContext("2d");
+    this.setState({
+      canvas,
+    });
   }
 
-  setWhiteCanvasBackground = () => {
-    const { width, height } = this.state.canvasDimension;
-    const canvas = this.myCanvas.current.getContext("2d");
-    canvas.fillStyle = "white";
-    canvas.fillRect(0, 0, width, height);
-  };
+  setImage = (
+    imageUrl,
+    isPortrait = this.state.isCanvasLandscape ? false : true
+  ) => {
+    const {
+      canvas,
+      canvasDimension: { width, height },
+    } = this.state;
 
-  setImage = (imageUrl) => {
-    const canvas = this.myCanvas.current.getContext("2d");
     const image = new Image();
     image.src = imageUrl;
-    image.onload = () => {
-      canvas.drawImage(
-        image,
-        0,
-        0,
-        this.state.canvasDimension.width,
-        this.state.canvasDimension.height
-      );
-    };
+
+    if (isPortrait) {
+      console.log("inside if, ispotrait is true");
+      image.onload = () => {
+        canvas.drawImage(image, 0, 0, width, height);
+        canvas.drawImage(image, 0, 125, 235, 150);
+      };
+    } else {
+      const image = new Image();
+      image.src = imageUrl;
+      console.log("inside else, ispotrait is false");
+
+      image.onload = () => {
+        canvas.drawImage(image, 0, 0, width, height);
+      };
+    }
+
+    this.setState({
+      currentImage: imageUrl,
+    });
   };
 
   handleDragOver = (e) => {
@@ -50,18 +69,48 @@ export class App extends Component {
     this.setImage(selectedImage);
   };
 
-  handleChangeOrientationClick = () => {
+  handleChangeOrientationClick = (isLandscape) => {
+    console.log(isLandscape);
+
+    this.setImage(this.state.currentImage, isLandscape);
+
     this.setState({
-      canvasDimension: {
-        width: 470 / 2,
-        height: 800 / 2,
-      },
+      isCanvasLandscape: !this.state.isCanvasLandscape,
     });
   };
+
+  // handleDownloadBtnClick = () => {
+  //   console.log("Download Clicked");
+  //   const btn = this.downloadBtn.current;
+  //   const dataUrl = this.myCanvas.current.toDataURL("image/jpeg");
+  //   btn.href = dataUrl;
+  //   btn.setAttribute("href", dataUrl);
+  //   console.log(btn.current);
+  //   console.log(dataUrl);
+  // };
+
   render() {
+    const { isCanvasLandscape } = this.state;
     return (
       <div>
-        <header>InVideo</header>
+        <header>
+          <img src={BrandLogo} alt="invideo logo" className="brand-logo" />
+
+          <div className="options">
+            <button
+              onClick={() =>
+                this.handleChangeOrientationClick(isCanvasLandscape)
+              }
+            >
+              CHANGE ORIENTATION
+            </button>
+            {/* <button onClick={this.handleDownloadBtnClick}>
+              <a href="#" ref={this.downloadBtn}>
+                DOWNLOAD
+              </a>
+            </button> */}
+          </div>
+        </header>
 
         <div className="main-wrapper">
           <aside>
@@ -69,17 +118,14 @@ export class App extends Component {
           </aside>
 
           <main>
-            <div className="options">
-              <button onClick={this.handleChangeOrientationClick}>
-                CHANGE ORIENTATION
-              </button>
-            </div>
             <canvas
               ref={this.myCanvas}
               onDrop={this.handleDrop}
               onDragOver={this.handleDragOver}
-              width={this.state.canvasDimension.width}
-              height={this.state.canvasDimension.height}
+              width={isCanvasLandscape ? this.state.canvasDimension.width : 235}
+              height={
+                isCanvasLandscape ? this.state.canvasDimension.height : 400
+              }
             />
           </main>
         </div>

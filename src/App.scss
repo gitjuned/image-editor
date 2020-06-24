@@ -1,6 +1,10 @@
 // BASE STYLES
 $primary-blue: #211d70;
 
+a {
+  text-decoration: none;
+  color: $primary-blue;
+}
 @mixin flex($justify-contet: center) {
   display: flex;
   align-items: center;
@@ -13,32 +17,57 @@ $primary-blue: #211d70;
 }
 
 aside,
-header {
-  @extend .blue-bg;
-}
-
-aside,
 main {
   display: inline-block;
 }
 header {
-  height: 50px;
+  height: 70px;
+  padding: 0 25px;
   font-weight: bold;
-  @include flex(flex-start);
+  @include flex(space-between);
+  background-color: #ecf2f9;
+  border-bottom: solid 1px $primary-blue;
+
+  .brand-logo {
+    width: 120px;
+  }
+
+  .options {
+    @include flex(center);
+
+    button {
+      border-radius: 4px;
+      color: $primary-blue;
+      border: solid 1px;
+      padding: 10px 20px;
+      background-color: white;
+      font-weight: bold;
+      margin-left: 15px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $primary-blue;
+        color: white;
+        a {
+          color: white;
+        }
+      }
+    }
+  }
 }
 
 // MAIN STYLES
 .main-wrapper {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 70px);
   overflow: hidden;
   aside {
     height: 100%;
     overflow-x: scroll;
     padding: 20px 0;
-    background-color: white;
-    border-right: solid 1px grey;
+    background-color: #edf0f2;
+    border-right: solid 1px $primary-blue;
     display: flex;
     text-align: center;
     .images {
@@ -58,9 +87,10 @@ header {
   }
   main {
     position: relative;
-    background-color: #edf0f2;
+    // background-color: #edf0f2;
 
     canvas {
+      display: block;
       position: absolute;
       top: 50%;
       left: 50%;
