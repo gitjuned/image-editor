@@ -7,7 +7,7 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.myCanvas = React.createRef();
-    this.downloadBtn = React.createRef();
+
     this.state = {
       canvasDimension: {
         width: 800,
@@ -19,7 +19,6 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    // this.setWhiteCanvasBackground();
     const canvas = this.myCanvas.current.getContext("2d");
     this.setState({
       canvas,
@@ -39,7 +38,6 @@ export class App extends Component {
     image.src = imageUrl;
 
     if (isPortrait) {
-      console.log("inside if, ispotrait is true");
       image.onload = () => {
         canvas.drawImage(image, 0, 0, width, height);
         canvas.drawImage(image, 0, 125, 235, 150);
@@ -47,7 +45,6 @@ export class App extends Component {
     } else {
       const image = new Image();
       image.src = imageUrl;
-      console.log("inside else, ispotrait is false");
 
       image.onload = () => {
         canvas.drawImage(image, 0, 0, width, height);
@@ -61,7 +58,6 @@ export class App extends Component {
 
   handleDragOver = (e) => {
     e.preventDefault();
-    // console.log(e);
   };
 
   handleDrop = (e) => {
@@ -70,24 +66,12 @@ export class App extends Component {
   };
 
   handleChangeOrientationClick = (isLandscape) => {
-    console.log(isLandscape);
-
     this.setImage(this.state.currentImage, isLandscape);
 
     this.setState({
       isCanvasLandscape: !this.state.isCanvasLandscape,
     });
   };
-
-  // handleDownloadBtnClick = () => {
-  //   console.log("Download Clicked");
-  //   const btn = this.downloadBtn.current;
-  //   const dataUrl = this.myCanvas.current.toDataURL("image/jpeg");
-  //   btn.href = dataUrl;
-  //   btn.setAttribute("href", dataUrl);
-  //   console.log(btn.current);
-  //   console.log(dataUrl);
-  // };
 
   render() {
     const { isCanvasLandscape } = this.state;
@@ -104,11 +88,6 @@ export class App extends Component {
             >
               CHANGE ORIENTATION
             </button>
-            {/* <button onClick={this.handleDownloadBtnClick}>
-              <a href="#" ref={this.downloadBtn}>
-                DOWNLOAD
-              </a>
-            </button> */}
           </div>
         </header>
 
