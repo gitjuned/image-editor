@@ -1,7 +1,7 @@
-## See It Live
+## See the Project Live:
 
 
-For live demo, visit [Live Link](https://github.com/facebook/create-react-app).
+For live demo, visit [Live Link](http://juned-invideo.surge.sh/).
 
 ## Available Scripts
 
