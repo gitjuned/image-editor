@@ -43,9 +43,6 @@ export class App extends Component {
         canvas.drawImage(image, 0, 125, 235, 150);
       };
     } else {
-      const image = new Image();
-      image.src = imageUrl;
-
       image.onload = () => {
         canvas.drawImage(image, 0, 0, width, height);
       };
