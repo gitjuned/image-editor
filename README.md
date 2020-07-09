@@ -7,6 +7,7 @@ For live demo, visit [Live Link](http://juned-invideo.surge.sh/).
 
 
 Simple Image editor app build with ReactJs.
+<br />
 Features:
 -
 
