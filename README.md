@@ -6,10 +6,12 @@ For live demo, visit [Live Link](http://juned-invideo.surge.sh/).
 ## About:
 
 
-Simple Image editor app build with ReactJs.
+Simple Image editor app build with ReactJs and Uses Canvas to modify Image.
 <br />
 Features:
--
+- Side Panel which loads images from API, infinite scroll embedded.
+- Drag and Drog images from side panel to Canvas.
+
 
 ## Available Scripts
 
