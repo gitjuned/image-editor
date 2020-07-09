@@ -3,6 +3,13 @@
 
 For live demo, visit [Live Link](http://juned-invideo.surge.sh/).
 
+## About:
+
+
+Simple Image editor app build with ReactJs.
+Features:
+-
+
 ## Available Scripts
 
 In the project directory, you can run:
